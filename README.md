@@ -24,7 +24,7 @@ ARK:SA In-game chat to Discord and Crossplay RCON support
   - `DiscordChat.Reload`
 
 # Future updates
-- Clutermap Chat
+- Clustered map Chat
 - Chat Icons
 
 # KNOWN ISSUES
