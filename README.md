@@ -1,6 +1,10 @@
 # AsaApi.Plugins.DiscordChat
 ARK:SA In-game chat to Discord and Crossplay RCON support
 
+# Requirements
+- ServerAPI (Download/Install)[https://gameservershub.com/forums/resources/ark-survival-ascended-serverapi-crossplay-supported.683/]
+- Ofcourse the ARK:SA Server
+
 # Features
 - Able to send local chat on discord
 - Combination of WebHook and Discord Bot
@@ -15,6 +19,10 @@ ARK:SA In-game chat to Discord and Crossplay RCON support
 - RCON chat is supported for those who crashing on normal RCON chat `RCON cmd can be set on config.json`
 - Plugin reloads both Console and RCON
   - `DiscordChat.Reload`
+
+# Future updates
+- Clutermap Chat
+- Chat Icons
 
 # Blank Config
 ```
