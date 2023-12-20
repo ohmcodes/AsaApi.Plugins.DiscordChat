@@ -4,6 +4,8 @@ ARK:SA In-game chat to Discord and Crossplay RCON support
 # Requirements
 - ServerAPI [Download/Install](https://gameservershub.com/forums/resources/ark-survival-ascended-serverapi-crossplay-supported.683/)
 - Ofcourse the ARK:SA Server
+- Bot Creation
+- Discord Channel Integration WebHook
 
 # Features
 - Able to send local chat on discord
