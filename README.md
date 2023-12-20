@@ -27,6 +27,10 @@ ARK:SA In-game chat to Discord and Crossplay RCON support
 - Clutermap Chat
 - Chat Icons
 
+# KNOWN ISSUES
+- Console Log (No Message received)  Doesn't affect anything - Still waiting for ServerAPI update 
+
+
 # Blank Config
 ```
 {
