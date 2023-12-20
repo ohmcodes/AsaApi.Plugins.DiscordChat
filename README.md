@@ -98,10 +98,9 @@ ARK:SA In-game chat to Discord and Crossplay RCON support
 ```
 
 # Give Love!
-```
-https://www.buymeacoffee.com/ohmcodes
-https://www.paypal.com/donate/?business=8389QZ23QRDPE&no_recurring=0&item_name=Game+Server%2FTools+Community+Donations&currency_code=CAD
-```
+[Buy me a coffee](https://www.buymeacoffee.com/ohmcodes)
+
+[Paypal](https://www.paypal.com/donate/?business=8389QZ23QRDPE&no_recurring=0&item_name=Game+Server%2FTools+Community+Donations&currency_code=CAD)
 
 # Source code
 As soon as I am comfortable with my coding I will release it to the public :)
