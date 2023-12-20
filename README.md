@@ -7,6 +7,7 @@ ARK:SA In-game chat to Discord and Crossplay RCON support
 
 # Features
 - Able to send local chat on discord
+- Able to set prefix eg: `[Discord]`
 - Combination of WebHook and Discord Bot
   - WebHook (Sending Messages with Username and Separated per User)
   - Discord Bot (Fetching all messages in specific channel)
