@@ -26,4 +26,4 @@
 ```
 ```
 /Game/Content/PrimalEarth/CoreBlueprints/Items/Artifacts/Icons/Artifact6_Icon.Artifact6_Icon
-``` 
+```
