@@ -18,3 +18,6 @@
 ```
 /Game/PrimalEarth/CoreBlueprints/Items/Artifacts/Icons/Implant_Icon_Alpha.Implant_Icon_Alpha
 ```
+```
+/Game/PrimalEarth/CoreBlueprints/Items/Artifacts/Icons/Artifact4_Icon.Artifact4_Icon
+```
