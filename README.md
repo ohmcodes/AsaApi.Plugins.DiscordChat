@@ -54,6 +54,7 @@ ARK:SA In-game chat to Discord and Crossplay RCON support
   },
   "Tribes": {},
   "Colors": {},
+  "Icons": {},
   "Messages": {
     "DMCmd": "/dm",
     "RconCmd": "DiscordChat",
