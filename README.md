@@ -24,7 +24,7 @@ ARK:SA In-game chat to Discord and Crossplay RCON support
   - `DiscordChat.Reload`
 
 # Future updates
-- Clutermap Chat
+- Clustered map Chat
 - Chat Icons
 
 # KNOWN ISSUES
@@ -111,6 +111,9 @@ ARK:SA In-game chat to Discord and Crossplay RCON support
   } 
 }
 ```
+
+# Support
+Feel free to join my Discord server [ArkTools](https://discord.gg/q8rPGprjEJ)
 
 # Give Love!
 [Buy me a coffee](https://www.buymeacoffee.com/ohmcodes)
