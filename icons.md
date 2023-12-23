@@ -22,5 +22,5 @@
 /Game/PrimalEarth/CoreBlueprints/Items/Artifacts/Icons/Artifact4_Icon.Artifact4_Icon
 ```
 ```
-/Game/PrimalEarth/CoreBlueprints/Items/Artifacts/Icons/Artifact9_Icon.uasset
+/Game/PrimalEarth/CoreBlueprints/Items/Artifacts/Icons/Artifact9_Icon.Artifact9_Icon
 ```
