@@ -28,6 +28,9 @@ ARK:SA In-game chat to Discord and Crossplay RCON support
 # Future updates
 - Clustered map Chat
 
+# Select ICONS
+- [ICONS.MD](https://github.com/ohmcodes/AsaApi.Plugins.DiscordChat/blob/main/icons.md)
+
 # KNOWN ISSUES
 - Console Log (No Message received)  Doesn't affect anything - Still waiting for ServerAPI update 
 
