@@ -24,15 +24,26 @@ ARK:SA In-game chat to Discord and Crossplay RCON support
   - `DiscordChat.Reload`
 - Custom Chat Icons
 - Platform Chat Icons [Generic, Steam, XBOX, PS]
+- Permissions
+- Show/Hide Steamname
+- Show/Hide Tribename
+- Show/Hide Platform text
+- Show/Hide Platform Icons
+- Enable/Disable Icons
+- Enable/Disable Admin Color/Icon
 
 # Future updates
 - Clustered map Chat
+- Discord Linker support (able to use discord user nickname and avatar when sending messages)
 
 # Select ICONS
 - [ICONS.MD](https://github.com/ohmcodes/AsaApi.Plugins.DiscordChat/blob/main/icons.md)
 
 # KNOWN ISSUES
 - Console Log (No Message received)  Doesn't affect anything - Still waiting for ServerAPI update 
+
+# RELOAD COMMANDS​
+Both RCON and Console command: `DiscordChat.Reload`
 
 
 # Blank Config
@@ -41,6 +52,7 @@ ARK:SA In-game chat to Discord and Crossplay RCON support
   "General": {
     "SendLocal": false,
     "WebHook": "",
+    "BotImage": "",
     "FetchMessages": true,
     "BotToken": "",
     "ChannelId": "",
@@ -52,17 +64,25 @@ ARK:SA In-game chat to Discord and Crossplay RCON support
     "LogAlly": false,
     "TribeChatColor": "0,1,0,1",
     "DMChatColor": "0.84,0.52,0,1",
-	"ShowPlatform": true,
-    "ShowIcons": true
+    "AdminEnable": true,
+    "AdminColor": "1,0,0,1",
+    "AdminIcon": "/Game/PrimalEarth/UI/Textures/ServerAdminChat_Icon.ServerAdminChat_Icon",
+    "ShowSteamname": true,
+    "ShowTribename": true,
+    "ShowPlatform": true,
+    "ShowIcons": true,
+    "ShowPlatformIcon": true
   },
+  "GroupColors": {},
   "Tribes": {},
   "Colors": {},
+  "GroupIcons": {},
   "Icons": {},
   "Messages": {
     "DMCmd": "/dm",
     "RconCmd": "DiscordChat",
     "DMerror": "Dirrect message error: Invalid Playername or Message"
-  } 
+  }
 }
 ```
 
@@ -72,6 +92,7 @@ ARK:SA In-game chat to Discord and Crossplay RCON support
   "General": {
     "SendLocal": true, /* send local chats on discord global chat channel */
     "WebHook": "", /* Global chat messaging ingame to discord */
+    "BotImage": "", /* Bot avatar */
     "FetchMessages": true, /* enabling fetch message */
     "BotToken": "", /* bot to fetch/send message on discord to game */
     "ChannelId": "", /* channel to recieve global chat ingame */
@@ -83,36 +104,49 @@ ARK:SA In-game chat to Discord and Crossplay RCON support
     "LogAlly": false, /* this logs ally chat on server api console */
     "TribeChatColor": "0,1,0,1", /* default green */
     "DMChatColor": "0.84,0.52,0,1", /* default orange */
-	"ShowPlatform": true, /* Enables Platform eg: [Steam] */
-    "ShowIcons": true /* Enables Icons */
+    "AdminEnable": true, /* Enables Admin color and icon */
+    "AdminColor": "1,0,0,1", /* default red */
+    "AdminIcon": "/Game/PrimalEarth/UI/Textures/ServerAdminChat_Icon.ServerAdminChat_Icon", /* default icon */
+    "ShowSteamname": true, /* Show steamname */
+    "ShowTribename": true, /* Show tribename */
+    "ShowPlatform": true, /* Enables Platform eg: [Steam] */
+    "ShowIcons": true, /* Enables Icons */
+    "ShowPlatformIcon": true /* Enable Platform icons */
+  },
+  "GroupColors": {
+    "Registered": "1,0,1,1" /* Permission groups */
   },
   "Tribes": {
     "VIP TRIBENAME": {
       "WebHook": "", /* webhoook url for sending messages to specific channel */
+      "BotImage": "", /* Tribe Bot avatar */
       "FetchMessages": true, /* enable fetch messages */
       "BotToken": "", /* if the VIP Tribe does their own bot and discord for fetching messages */
       "ChannelId": "", /* VIP Tribe own discord channel id */
       "DiscordSenderPrefix": "[Discord] " /* prefix before playername */
     },
     "VIP TRIBENAME 1": {
-      "WebHook": "", 
+      "WebHook": "",
       "FetchMessages": true,
-      "BotToken": "", 
+      "BotToken": "",
       "ChannelId": "",
       "DiscordSenderPrefix": "[Discord] "
     },
     "VIP TRIBENAME 2": {
-      "WebHook": "", 
+      "WebHook": "",
       "FetchMessages": true,
       "BotToken": "",
       "ChannelId": "",
-      "DiscordSenderPrefix": "[Discord] " 
+      "DiscordSenderPrefix": "[Discord] "
     }
   },
   "Colors": {
     "VIP Playername": "1,0,1,1", /* Red, Green, Blue, Alpha = opacity */
     "VIP Playername 1": "1,1,0,1",
     "VIP Playername 2": "1,1,1,1"
+  },
+  "GroupIcons": { /* Permission groups Icons */
+    "Registered": "/Game/PrimalEarth/CoreBlueprints/Items/Consumables/Icons/SpoiledMeat_Icon.SpoiledMeat_Icon"
   },
   "Icons": {
     "ICON Player 1": "/Game/PrimalEarth/CoreBlueprints/Items/Artifacts/Icons/Implant_Icon.Implant_Icon",
@@ -122,8 +156,9 @@ ARK:SA In-game chat to Discord and Crossplay RCON support
   },
   "Messages": {
     "DMCmd": "/dm", /* Direct message /dm playername */
-    "RconCmd":  "DiscordChat" /* this can be support different third party apps that uses rcon to send messages */
-  } 
+    "RconCmd": "DiscordChat", /* this can be support different third party apps that uses rcon to send messages */
+    "DMerror": "Dirrect message error: Invalid Playername or Message"
+  }
 }
 ```
 
