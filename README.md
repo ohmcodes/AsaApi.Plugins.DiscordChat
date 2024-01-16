@@ -35,6 +35,7 @@ ARK:SA In-game chat to Discord and Crossplay RCON support
 # Future updates
 - Clustered map Chat
 - Discord Linker support (able to use discord user nickname and avatar when sending messages)
+- Discord messages emoticons and color
 
 # Select ICONS
 - [ICONS.MD](https://github.com/ohmcodes/AsaApi.Plugins.DiscordChat/blob/main/icons.md)
@@ -62,6 +63,10 @@ Both RCON and Console command: `DiscordChat.Reload`
     "LogTribe": false,
     "LogLocal": false,
     "LogAlly": false,
+    "MessageChatColor": "0,1,1,1",
+    "MessageLocalChatColor": "1,0.5,1,1",
+    "MessageAllyChatColor": "0.5,0.5,1,1",
+    "MessageTribeChatColor": "1,1,0.5,1",
     "TribeChatColor": "0,1,0,1",
     "DMChatColor": "0.84,0.52,0,1",
     "AdminEnable": true,
@@ -102,6 +107,10 @@ Both RCON and Console command: `DiscordChat.Reload`
     "LogTribe": false, /* this logs tribe chat on server api console */
     "LogLocal": false, /* this logs local chat on server api console */
     "LogAlly": false, /* this logs ally chat on server api console */
+    "MessageChatColor": "0,1,1,1",
+    "MessageLocalChatColor": "1,0.5,1,1",
+    "MessageAllyChatColor": "0.5,0.5,1,1",
+    "MessageTribeChatColor": "1,1,0.5,1",
     "TribeChatColor": "0,1,0,1", /* default green */
     "DMChatColor": "0.84,0.52,0,1", /* default orange */
     "AdminEnable": true, /* Enables Admin color and icon */
