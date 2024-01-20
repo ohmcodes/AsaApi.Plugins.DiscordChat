@@ -31,11 +31,10 @@ ARK:SA In-game chat to Discord and Crossplay RCON support
 - Show/Hide Platform Icons
 - Enable/Disable Icons
 - Enable/Disable Admin Color/Icon
+- Discord messages emoticons and color
+- Clustered map Chat
 
 # Future updates
-- Clustered map Chat
-- Discord Linker support (able to use discord user nickname and avatar when sending messages)
-- Discord messages emoticons and color
 
 # Select ICONS
 - [ICONS.MD](https://github.com/ohmcodes/AsaApi.Plugins.DiscordChat/blob/main/icons.md)
@@ -63,20 +62,40 @@ Both RCON and Console command: `DiscordChat.Reload`
     "LogTribe": false,
     "LogLocal": false,
     "LogAlly": false,
+    "UsingDiscordLinker": true,
+    "MapName": "[TI]",
     "MessageChatColor": "0,1,1,1",
     "MessageLocalChatColor": "1,0.5,1,1",
     "MessageAllyChatColor": "0.5,0.5,1,1",
     "MessageTribeChatColor": "1,1,0.5,1",
+    "MessageDiscordColor": "0.4,0.3,0.1,1",
+    "MapnameColor": "0.3,0.3,0.3,1",
+    "DiscordColor": "0.5,1,0.5,1",
     "TribeChatColor": "0,1,0,1",
     "DMChatColor": "0.84,0.52,0,1",
     "AdminEnable": true,
     "AdminColor": "1,0,0,1",
     "AdminIcon": "/Game/PrimalEarth/UI/Textures/ServerAdminChat_Icon.ServerAdminChat_Icon",
+    "DiscordIcon": "/Game/PrimalEarth/CoreBlueprints/Items/Consumables/Icons/SpoiledMeat_Icon.SpoiledMeat_Icon",
+    "ShowMapname": true,
     "ShowSteamname": true,
     "ShowTribename": true,
     "ShowPlatform": true,
     "ShowIcons": true,
-    "ShowPlatformIcon": true
+    "ShowPlatformIcon": true,
+    "Crosschat":  true
+  },
+  "Rcon": {
+    "TI": {
+      "Host": "",
+      "Port": "",
+      "Password": ""
+    },
+    "SE": {
+      "Host": "",
+      "Port": "",
+      "Password": ""
+    }
   },
   "GroupColors": {},
   "Tribes": {},
@@ -101,26 +120,46 @@ Both RCON and Console command: `DiscordChat.Reload`
     "FetchMessages": true, /* enabling fetch message */
     "BotToken": "", /* bot to fetch/send message on discord to game */
     "ChannelId": "", /* channel to recieve global chat ingame */
-    "DiscordSenderPrefix": "[Discord] ", /* Sender prefix */
+    "DiscordSenderPrefix": "[Discord]", /* Sender prefix */
     "FetchInterval": 5, /* chat fetch interval */
     "LogChat": false, /* this logs global chat on server api console */
     "LogTribe": false, /* this logs tribe chat on server api console */
     "LogLocal": false, /* this logs local chat on server api console */
     "LogAlly": false, /* this logs ally chat on server api console */
-    "MessageChatColor": "0,1,1,1",
-    "MessageLocalChatColor": "1,0.5,1,1",
-    "MessageAllyChatColor": "0.5,0.5,1,1",
-    "MessageTribeChatColor": "1,1,0.5,1",
+    "UsingDiscordLinker": true, /* automatically gets the player info if the user chat on discord */
+    "MapName": "[TI]", /* map name for cluster */
+    "MessageChatColor": "0,1,1,1", /* Message global color */
+    "MessageLocalChatColor": "1,0.5,1,1", /* Message local color */
+    "MessageAllyChatColor": "0.5,0.5,1,1", /* Message ally color */
+    "MessageTribeChatColor": "1,1,0.5,1", /* Message tribe color */
+    "MessageDiscordColor": "0.4,0.3,0.1,1", /* Message discord color */
+    "MapnameColor": "0.3,0.3,0.3,1", /* Mapname color */
+    "DiscordColor": "0.5,1,0.5,1", /* Prefix and name color */
     "TribeChatColor": "0,1,0,1", /* default green */
     "DMChatColor": "0.84,0.52,0,1", /* default orange */
     "AdminEnable": true, /* Enables Admin color and icon */
     "AdminColor": "1,0,0,1", /* default red */
     "AdminIcon": "/Game/PrimalEarth/UI/Textures/ServerAdminChat_Icon.ServerAdminChat_Icon", /* default icon */
+    "DiscordChatIcon": "/Game/PrimalEarth/CoreBlueprints/Items/Consumables/Icons/SpoiledMeat_Icon.SpoiledMeat_Icon",
+    "ShowMapname": true, /* Show mapname */
     "ShowSteamname": true, /* Show steamname */
     "ShowTribename": true, /* Show tribename */
     "ShowPlatform": true, /* Enables Platform eg: [Steam] */
     "ShowIcons": true, /* Enables Icons */
-    "ShowPlatformIcon": true /* Enable Platform icons */
+    "ShowPlatformIcon": true, /* Enable Platform icons */
+    "Crosschat": true /* Enable crosschat */
+  },
+  "Rcon": { /* required for crosschat WARNING: Dont include current map or it will cause crash */
+    "TI": { /* any name */
+      "Host": "", /* ip address */
+      "Port": "", /* port */
+      "Password": "" /* password */
+    },
+    "SE": { /* any name */
+      "Host": "", /* ip address */
+      "Port": "", /* port */
+      "Password": "" /* password */
+    }
   },
   "GroupColors": {
     "Registered": "1,0,1,1" /* Permission groups */
@@ -176,6 +215,11 @@ Feel free to join my Discord server [ArkTools](https://discord.gg/q8rPGprjEJ)
 
 # Give Love!
 [Buy me a coffee](https://www.buymeacoffee.com/ohmcodes)
+
+
+
+
+.
 
 [Paypal](https://www.paypal.com/donate/?business=8389QZ23QRDPE&no_recurring=0&item_name=Game+Server%2FTools+Community+Donations&currency_code=CAD)
 
