@@ -32,7 +32,9 @@ ARK:SA In-game chat to Discord and Crossplay RCON support
 - Enable/Disable Icons
 - Enable/Disable Admin Color/Icon
 - Discord messages emoticons and color
-- Clustered map Chat
+- Clustered map Chat (Crosschat)
+- Unicode (for different languages)
+- Discord Messaging tag filters
 
 # Future updates
 
