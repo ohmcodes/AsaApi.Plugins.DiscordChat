@@ -35,8 +35,10 @@ ARK:SA In-game chat to Discord and Crossplay RCON support
 - Clustered map Chat (Crosschat)
 - Unicode (for different languages)
 - Discord Messaging tag filters
+- Temporary Chat Database (SqlLite [has issues with database being locked] / MySQL)
 
 # Future updates
+- Suggest on my discord :)
 
 # Select ICONS
 - [ICONS.MD](https://github.com/ohmcodes/AsaApi.Plugins.DiscordChat/blob/main/icons.md)
