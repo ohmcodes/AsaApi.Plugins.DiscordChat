@@ -84,21 +84,38 @@ Both RCON and Console command: `DiscordChat.Reload`
     "ShowTribename": true,
     "ShowPlatform": true,
     "ShowIcons": true,
-    "ShowPlatformIcon": true,
-    "Crosschat":  true
+    "ShowPlatformIcon": true
   },
-  "Rcon": {
-    "TI": {
-      "Host": "",
-      "Port": "",
-      "Password": ""
+  "Crosschat": {
+    "Enable": true,
+    "ClearInterval": 10,
+    "ClearMessages": true,
+    "ShowMapname": true,
+    "ShowTribeName": true,
+    "ShowSteamName": true,
+    "ShowIcons": true,
+    "ShowPlatform": true,
+    "MapnameColor": "0.3,0.3,0.3,1",
+    "SenderNameColor": "0.5,1,0.5,1",
+    "TribeNameColor": "0.5,1,0.5,1",
+    "SteamNameColor": "0.5,1,0.5,1",
+    "MessageColor": "0.4,0.3,0.1,1",
+    "Database": {
+      "MysqlDB": "",
+      "MysqlHost": "",
+      "MysqlPass": "",
+      "MysqlPort": 3306,
+      "MysqlUser": "",
+      "UseMysql": false,
+      "DbPathOverride": "C:\\ASACrossChat.db"
     },
-    "SE": {
-      "Host": "",
-      "Port": "",
-      "Password": ""
-    }
+    "CurrentServer": "TI",
+    "Servers": "SE,Event"
   },
+  "DiscordMsgFilters": [
+    "@everyone",
+    "@here"
+  ],
   "GroupColors": {},
   "Tribes": {},
   "Colors": {},
@@ -148,21 +165,38 @@ Both RCON and Console command: `DiscordChat.Reload`
     "ShowTribename": true, /* Show tribename */
     "ShowPlatform": true, /* Enables Platform eg: [Steam] */
     "ShowIcons": true, /* Enables Icons */
-    "ShowPlatformIcon": true, /* Enable Platform icons */
-    "Crosschat": true /* Enable crosschat */
+    "ShowPlatformIcon": true /* Enable Platform icons */
   },
-  "Rcon": { /* required for crosschat WARNING: Dont include current map or it will cause crash */
-    "TI": { /* any name */
-      "Host": "", /* ip address */
-      "Port": "", /* port */
-      "Password": "" /* password */
+  "Crosschat": {
+    "Enable": true, /* Enable crosschat */
+    "ClearInterval": 10, /* Every 10seconds make higher value if using sqlite due to read and write issues*/
+    "ClearMessages": true, /* Enable ClearMessaging */
+    "ShowMapname": true,
+    "ShowTribeName": true,
+    "ShowSteamName": true,
+    "ShowIcons": true,
+    "ShowPlatform": true,
+    "MapnameColor": "0.3,0.3,0.3,1",
+    "SenderNameColor": "0.5,1,0.5,1",
+    "TribeNameColor": "0.5,1,0.5,1",
+    "SteamNameColor": "0.5,1,0.5,1",
+    "MessageColor": "0.4,0.3,0.1,1",
+    "Database": {
+      "MysqlDB": "", /* Database name */
+      "MysqlHost": "", /* host or ip address */
+      "MysqlPass": "", /* password */
+      "MysqlPort": 3306, /* port 3306 default mostly */
+      "MysqlUser": "", /* db username */
+      "UseMysql": false, /* Mysql credentials is required if enabled */
+      "DbPathOverride": "C:\\ASACrossChat.db" /* Path to your database (got issue with database being locked) */
     },
-    "SE": { /* any name */
-      "Host": "", /* ip address */
-      "Port": "", /* port */
-      "Password": "" /* password */
-    }
+    "CurrentServer": "TI", /* current server (this need to be the same caps as Servers */
+    "Servers": "SE,SVR1,SVR2,EVENT" /* List of servers (don't include current server) if you only have two servers can be written like this "Servers": "SE"*/
   },
+  "DiscordMsgFilters": [ /* Filter tag or specific messages (it won't send to discord if found) */
+    "@everyone",
+    "@here"
+  ],
   "GroupColors": {
     "Registered": "1,0,1,1" /* Permission groups */
   },
