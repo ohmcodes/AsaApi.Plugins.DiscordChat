@@ -43,6 +43,9 @@ ARK:SA In-game chat to Discord and Crossplay RCON support
 # Select ICONS
 - [ICONS.MD](https://github.com/ohmcodes/AsaApi.Plugins.DiscordChat/blob/main/icons.md)
 
+# Compatible MYSQL
+- [https://downloads.mysql.com/archives/c-cpp/](https://downloads.mysql.com/archives/get/p/25/file/mysql-installer-community-8.0.20.0.msi)
+
 # KNOWN ISSUES
 - Console Log (No Message received)  Doesn't affect anything - Still waiting for ServerAPI update 
 
