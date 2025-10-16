@@ -1,0 +1,6 @@
+{
+  "FullName": "DiscordGlobalChat",
+  "Description": "ARKSA In-game global chat to discord for the whole cluster servers",
+  "Version": 1,
+  "MinApiVersion": 1.18
+}

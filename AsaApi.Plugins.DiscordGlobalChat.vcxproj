@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Configs\config-commented.json" />
+    <None Include="Configs\config-dev.json" />
+    <None Include="Configs\config.json" />
+    <None Include="Configs\PluginInfo.json" />
+    <None Include="vcpkg.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Includes\sqlite3\sqlite3.c" />
+    <ClCompile Include="Source\Database\MySQLConnector.cpp" />
+    <ClCompile Include="Source\Database\SQLiteConnector.cpp" />
+    <ClCompile Include="Source\DiscordGlobalChat.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Includes\sqlite3\sqlite3.h" />
+    <ClInclude Include="Source\Commands.h" />
+    <ClInclude Include="Source\Hooks.h" />
+    <ClInclude Include="Source\Public\Database\DatabaseFactory.h" />
+    <ClInclude Include="Source\Public\Database\IDatabaseConnector.h" />
+    <ClInclude Include="Source\Public\Database\MySQLConnector.h" />
+    <ClInclude Include="Source\Public\Database\SQLiteConnector.h" />
+    <ClInclude Include="Source\Public\DiscordGlobalChat.h" />
+    <ClInclude Include="Source\Reload.h" />
+    <ClInclude Include="Source\RepairItems.h" />
+    <ClInclude Include="Source\Timers.h" />
+    <ClInclude Include="Source\Utils.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{f7095f8f-7bbd-40a5-b61d-b442c92a88b2}</ProjectGuid>
+    <RootNamespace>AsaApiPluginsDiscordGlobalChat</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>DiscordGlobalChat</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)Build\</OutDir>
+    <IntDir>$(OutDir)$(Platform)</IntDir>
+    <IncludePath>$(SolutionDir)Includes;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Libs;$(LibraryPath)</LibraryPath>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <VcpkgUseStatic>true</VcpkgUseStatic>
+    <VcpkgUseMD>true</VcpkgUseMD>
+  </PropertyGroup>
+  <PropertyGroup Label="Vcpkg">
+    <VcpkgEnableManifest>true</VcpkgEnableManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>PROJECT_NAME="$(ProjectName)";NDEBUG;ASAAPIPLUGINSDISCORDGLOBALCHAT_EXPORTS;_WINDOWS;_USRDLL;_SILENCE_ALL_CXX20_DEPRECATION_WARNINGS;_CRT_SECURE_NO_WARNINGS;_SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING;_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)Includes;$(SolutionDir)Source\Public;$(SolutionDir)..\AsaApi\AsaApi\Core\Public;$(SolutionDir)..\AsaApi\AsaApi\Core\Public\API\UE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableUAC>false</EnableUAC>
+      <AdditionalDependencies>$(SolutionDir)..\AsaApi\out_lib\AsaApi.lib;$(SolutionDir)Libs\mysqlclient.lib;Ws2_32.lib;crypt32.lib;iphlpapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(SolutionDir)Output\$(ProjectName)\"
+copy /y "$(TargetDir)$(TargetFileName)" "$(SolutionDir)Output\$(ProjectName)\$(TargetFileName).arkapi"
+copy /y "$(TargetPath)" "$(SolutionDir)Output\$(ProjectName)\$(TargetFileName)"
+copy /y "$(SolutionDir)Configs\config.json" "$(SolutionDir)Output\$(ProjectName)\config.json"
+copy /y "$(SolutionDir)Configs\config-commented.json" "$(SolutionDir)Output\$(ProjectName)\config-commented.json"
+copy /y "$(SolutionDir)Configs\PluginInfo.json" "$(SolutionDir)Output\$(ProjectName)\PluginInfo.json"
+mkdir "D:\WGSM\servers\1\serverfiles\ShooterGame\Binaries\Win64\ArkApi\Plugins\$(ProjectName)\"
+copy /y "$(TargetDir)$(TargetFileName)" "D:\WGSM\servers\1\serverfiles\ShooterGame\Binaries\Win64\ArkApi\Plugins\$(ProjectName)\$(TargetFileName).arkapi"
+copy /y "$(TargetPath)" "D:\WGSM\servers\1\serverfiles\ShooterGame\Binaries\Win64\ArkApi\Plugins\$(ProjectName)\$(TargetFileName)"
+copy /y "$(SolutionDir)Configs\config-dev.json" "D:\WGSM\servers\1\serverfiles\ShooterGame\Binaries\Win64\ArkApi\Plugins\$(ProjectName)\config.json"
+copy /y "$(SolutionDir)Configs\PluginInfo.json" "D:\WGSM\servers\1\serverfiles\ShooterGame\Binaries\Win64\ArkApi\Plugins\$(ProjectName)\PluginInfo.json
+git add -A
+git commit -m "Auto push after build"
+git push</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if exist "$(TargetDir)$(TargetFileName).arkapi" del /q "$(TargetDir)$(TargetFileName).arkapi"</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

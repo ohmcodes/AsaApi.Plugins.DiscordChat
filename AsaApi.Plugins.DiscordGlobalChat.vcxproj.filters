@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Configs">
+      <UniqueIdentifier>{c06959b0-30d5-4016-be1d-586522f88e2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Public">
+      <UniqueIdentifier>{0c1818de-a0b9-4baf-bb00-b17ee771b707}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Database">
+      <UniqueIdentifier>{834d0f62-de43-403b-a7f2-563761ae6dc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Public\Database">
+      <UniqueIdentifier>{6794eca5-dfaf-409e-8ccb-3c6c3fa5d0f8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="vcpkg.json" />
+    <None Include="Configs\config.json">
+      <Filter>Configs</Filter>
+    </None>
+    <None Include="Configs\config-commented.json">
+      <Filter>Configs</Filter>
+    </None>
+    <None Include="Configs\config-dev.json">
+      <Filter>Configs</Filter>
+    </None>
+    <None Include="Configs\PluginInfo.json">
+      <Filter>Configs</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\DiscordGlobalChat.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Database\MySQLConnector.cpp">
+      <Filter>Source Files\Database</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Database\SQLiteConnector.cpp">
+      <Filter>Source Files\Database</Filter>
+    </ClCompile>
+    <ClCompile Include="Includes\sqlite3\sqlite3.c">
+      <Filter>Header Files\Public\Database</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\Public\DiscordGlobalChat.h">
+      <Filter>Header Files\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Reload.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Commands.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\RepairItems.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Hooks.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Timers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Public\Database\DatabaseFactory.h">
+      <Filter>Header Files\Public\Database</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Public\Database\IDatabaseConnector.h">
+      <Filter>Header Files\Public\Database</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Public\Database\MySQLConnector.h">
+      <Filter>Header Files\Public\Database</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Public\Database\SQLiteConnector.h">
+      <Filter>Header Files\Public\Database</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\sqlite3\sqlite3.h">
+      <Filter>Header Files\Public\Database</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
