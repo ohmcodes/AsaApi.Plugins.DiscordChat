@@ -49,7 +49,7 @@ void RepairItemsCallback(AShooterPlayerController* pc, FString* param, int, int)
 	{
 		if (item->bIsEngram().Get()) continue;
 
-		if (item->IsItemSkin(false)) continue;
+		if (item->IsItemSkin()) continue;
 
 		//if(!item->IsBroken()) only fix broken things
 
