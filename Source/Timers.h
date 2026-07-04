@@ -9,7 +9,7 @@ void TimerCallback()
 		const FString msg = FString("Welcome to the server");
 		AsaApi::GetApiUtils().GetCheatManager()->Broadcast(&msg);
 	}
-
+	
 	// sample notif every 50secs
 	if (DiscordGlobalChat::counter == 50)
 	{
