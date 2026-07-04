@@ -8,13 +8,7 @@
     "Permissions": true,
     "Points": true
   },
-  "Commands": {
-    "RepairItemCMD": "/repairitems",
-    "DeletePlayerCMD": "/deleteplayer"
-  },
   "Messages": {
-    "RepairItemsMSG": "All items has been repaired. {}",
-    "PermErrorMSG": "You don't have permission to use this command.",
     "PointsErrorMSG": "Not enough points."
   },
   "DiscordBot": {

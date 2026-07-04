@@ -28,7 +28,6 @@ void OnServerReady()
 	AddOrRemoveCommands();
 	AddReloadCommands();
 	SetTimers();
-	SetHooks();
 }
 
 DECLARE_HOOK(AShooterGameMode_BeginPlay, void, AShooterGameMode*);
@@ -56,5 +55,4 @@ extern "C" __declspec(dllexport) void Plugin_Unload()
 	AddOrRemoveCommands(false);
 	AddReloadCommands(false);
 	SetTimers(false);
-	SetHooks(false);
 }
