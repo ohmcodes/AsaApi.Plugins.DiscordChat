@@ -38,7 +38,7 @@ void FetchMessageFromDiscordCallback(bool success, std::string results)
 			
 			if (!startsWith(msg, "!"))
 			{
-				Log::GetLog()->warn("message not startswith !");
+				//Log::GetLog()->warn("message not startswith !");
 				return;
 			}
 
