@@ -95,19 +95,19 @@
       <AdditionalDependencies>$(SolutionDir)..\AsaApi\out_lib\AsaApi.lib;$(SolutionDir)Libs\mysqlclient.lib;Ws2_32.lib;crypt32.lib;iphlpapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>mkdir "$(SolutionDir)Output\$(ProjectName)\"
+      <Command>if not exist "$(SolutionDir)Output\$(ProjectName)" mkdir "$(SolutionDir)Output\$(ProjectName)"
 copy /y "$(TargetDir)$(TargetFileName)" "$(SolutionDir)Output\$(ProjectName)\$(TargetFileName).arkapi"
 copy /y "$(TargetPath)" "$(SolutionDir)Output\$(ProjectName)\$(TargetFileName)"
 copy /y "$(SolutionDir)Configs\config.json" "$(SolutionDir)Output\$(ProjectName)\config.json"
 copy /y "$(SolutionDir)Configs\config-commented.json" "$(SolutionDir)Output\$(ProjectName)\config-commented.json"
 copy /y "$(SolutionDir)Configs\PluginInfo.json" "$(SolutionDir)Output\$(ProjectName)\PluginInfo.json"
-mkdir "D:\WGSM\servers\1\serverfiles\ShooterGame\Binaries\Win64\ArkApi\Plugins\$(ProjectName)\"
+if not exist "D:\WGSM\servers\1\serverfiles\ShooterGame\Binaries\Win64\ArkApi\Plugins\$(ProjectName)" mkdir "D:\WGSM\servers\1\serverfiles\ShooterGame\Binaries\Win64\ArkApi\Plugins\$(ProjectName)"
 copy /y "$(TargetDir)$(TargetFileName)" "D:\WGSM\servers\1\serverfiles\ShooterGame\Binaries\Win64\ArkApi\Plugins\$(ProjectName)\$(TargetFileName).arkapi"
 copy /y "$(TargetPath)" "D:\WGSM\servers\1\serverfiles\ShooterGame\Binaries\Win64\ArkApi\Plugins\$(ProjectName)\$(TargetFileName)"
 copy /y "$(SolutionDir)Configs\config-dev.json" "D:\WGSM\servers\1\serverfiles\ShooterGame\Binaries\Win64\ArkApi\Plugins\$(ProjectName)\config.json"
 copy /y "$(SolutionDir)Configs\PluginInfo.json" "D:\WGSM\servers\1\serverfiles\ShooterGame\Binaries\Win64\ArkApi\Plugins\$(ProjectName)\PluginInfo.json
 git add -A
-git commit -m "Auto push after build"
+git commit -m "Auto push after build" -m "Co-authored-by: ohmcodes &lt;ohmcodes@gmail.com&gt;" -m "Co-authored-by: Mark-Oasan &lt;markoasan@gmail.com&gt;"
 git push</Command>
     </PostBuildEvent>
     <PreBuildEvent>
