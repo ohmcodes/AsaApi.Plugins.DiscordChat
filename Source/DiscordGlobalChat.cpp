@@ -25,8 +25,6 @@ void OnServerReady()
 
 	ReadConfig();
 	LoadDatabase();
-	AddOrRemoveCommands();
-	AddReloadCommands();
 	SetTimers();
 }
 
@@ -52,7 +50,5 @@ extern "C" __declspec(dllexport) void Plugin_Unload()
 {
 	AsaApi::GetHooks().DisableHook("AShooterGameMode.BeginPlay()", Hook_AShooterGameMode_BeginPlay);
 
-	AddOrRemoveCommands(false);
-	AddReloadCommands(false);
 	SetTimers(false);
 }

@@ -2,6 +2,7 @@
 
 void AddOrRemoveCommands(bool addCmd = true)
 {
+#if 0
 	const FString RepairItems = DiscordGlobalChat::config["Commands"]["RepairItemCMD"].get<std::string>().c_str();
 	if (!RepairItems.IsEmpty())
 	{
@@ -27,4 +28,6 @@ void AddOrRemoveCommands(bool addCmd = true)
 			AsaApi::GetCommands().RemoveChatCommand(DeletePlayer);
 		}
 	}
+#endif
+
 }
