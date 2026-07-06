@@ -981,6 +981,7 @@ void LogChat(FPrimalChatMessage* Chat)
 	}
 }
 
+
 #if 0
 void SaveSqlCrossServerChat(FPrimalChatMessage* Chat)
 {
@@ -1035,6 +1036,20 @@ void SaveSqlCrossServerChat(FPrimalChatMessage* Chat)
 
 bool ChatMessageCallback(AShooterPlayerController* player_controller, FString* Message, int SendMode, int SenderPlatform, bool spam_check, bool command_executed)
 {
+
+#pragma region GateKeeping
+	// Player Dead
+	if (AsaApi::IApiUtils::IsPlayerDead(player_controller)) return false;
+
+	// Player Spectator
+	if (player_controller->PlayerStateField().Get()->bIsSpectator().Get() == true) return false;
+
+	if (spam_check || command_executed) return false;
+
+	// local / ally
+	//if (SendMode == 2 || SendMode == 3) return false;
+#pragma endregion
+
 	FString steamName;
 	player_controller->GetPlatformNameFromId(&steamName, player_controller->GetLinkedPlayerID());
 
@@ -1049,47 +1064,30 @@ bool ChatMessageCallback(AShooterPlayerController* player_controller, FString* M
 
 	FString eosID = player_controller->GetEOSId();
 
+	FString mapname;
+	AsaApi::GetApiUtils().GetWorld()->GetMapName(&mapname);
+
 	/* TEST playername SeanMarco | platformname Marco | msg test 123 global | sendmode 0 | senderplatform 1 | spam_check 0 | cmd_exec 0 */
 	Log::GetLog()->info(
-		"TEST playername {} | platformname {} | msg {} | sendmode {} | senderplatform {} | spam_check {} | cmd_exec {} ", 
+		"TEST playername {} | platformname {} | msg {} | sendmode {} | senderplatform {} | spam_check {} | cmd_exec {} | tribename {} | eosID {}", 
 		playername.ToString(), 
 		steamName.ToString(),
 		Message->ToString(), 
 		SendMode, 
 		SenderPlatform, 
 		std::to_string(spam_check), 
-		std::to_string(command_executed));
-
-	FPrimalChatMessage logMsg{};
-
-	logMsg.SenderName = playername;
-	logMsg.SenderSteamName = steamName;
-	logMsg.SenderTribeName = tribeName;
-	logMsg.SenderId = playerID;
-	logMsg.Message = *Message;
-	logMsg.SenderTeamIndex = tribeID;
-	logMsg.SendMode = GetChatSendModeIntType(SendMode);
-	logMsg.ChatType = GetChatTypeIntType(SendMode);
-	logMsg.senderPlatform = SenderPlatform;
-	logMsg.UserId = eosID;
-	logMsg.SenderIsAdmin = (unsigned char)player_controller->bIsAdmin()();
-
-
-	player_controller->LogChatMessage(&logMsg);
-
+		std::to_string(command_executed),
+		tribeName.ToString(),
+		eosID.ToString()
+	
+	);
+	
 	return true;
 
+
+
 #if 0
-	// Player Dead
-	if (AsaApi::IApiUtils::IsPlayerDead(player_controller)) return false;
-
-	// Player Spectator
-	if (player_controller->PlayerStateField().Get()->bIsSpectator().Get() == true) return false;
-
-	if (spam_check || command_executed) return false;
-
-	// local / ally
-	if (SendMode == 2 || SendMode == 3) return false;
+	
 
 	// Cache sender
 	// check if exists
