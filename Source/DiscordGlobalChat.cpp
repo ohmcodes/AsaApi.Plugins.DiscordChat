@@ -4,6 +4,12 @@
 
 #include "Utils.h"
 
+#include "Hooks.h"
+
+#include "Commands.h"
+
+#include "Reload.h"
+
 #include "Timers.h"
 
 
@@ -17,6 +23,8 @@ void OnServerReady()
 
 	ReadConfig();
 	LoadDatabase();
+	AddOrRemoveCommands();
+	SetHooks();
 	SetTimers();
 }
 
@@ -42,5 +50,7 @@ extern "C" __declspec(dllexport) void Plugin_Unload()
 {
 	AsaApi::GetHooks().DisableHook("AShooterGameMode.BeginPlay()", Hook_AShooterGameMode_BeginPlay);
 
+	AddOrRemoveCommands(false);
+	SetHooks(false);
 	SetTimers(false);
 }

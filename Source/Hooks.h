@@ -1,29 +1,76 @@
 
 
-#if 0 
-DECLARE_HOOK(AShooterCharacter_Die, bool, AShooterCharacter*, float, FDamageEvent*, AController*, AActor*);
-
-bool Hook_AShooterCharacter_Die(AShooterCharacter* shooter_character, float KillingDamage, FDamageEvent* DamageEvent, AController* Killer, AActor* DamageCauser)
+DECLARE_HOOK(AShooterPlayerController_ClientChatMessage, void, AShooterPlayerController*, FPrimalChatMessage*);
+void Hook_AShooterPlayerController_ClientChatMessage(AShooterPlayerController* _this, FPrimalChatMessage* Chat)
 {
-	FString playername = shooter_character->PlayerNameField();
+    if (DiscordGlobalChat::isDebug == true)
+        Log::GetLog()->info("Hook_AShooterPlayerController_ClientChatMessage() Called");
 
-	Log::GetLog()->info("Player: {}, Dies!", playername.ToString());
+    /*FPrimalChatMessage{
+    FString SenderName;
+    FString SenderSteamName;
+    FString SenderTribeName;
+    unsigned int SenderId;
+    FString Message;
+    FString Receiver;
+    int SenderTeamIndex;
+    long double ReceivedTime;
+    TEnumAsByte<enum EChatSendMode::Type> SendMode;
+    unsigned int RadioFrequency;
+    TEnumAsByte<enum EChatType::Type> ChatType;
+    UTexture2D* SenderIcon;
+    unsigned __int8 senderPlatform;
+    FString UserId;
+    unsigned __int8 SenderIsAdmin : 1;*/
 
-	return AShooterCharacter_Die_original(shooter_character, KillingDamage, DamageEvent, Killer, DamageCauser);
+
+
+    Log::GetLog()->info("SenderName {} SenderSteamName {} SenderTribeName {} SenderId {} Receiver {} SenderTeamIndex {} ReceivedTime {} RadioFreq {} senderPlatform {} UserId {} SenderIsAdmin {}",
+        Chat->SenderName.ToString(),
+        Chat->SenderSteamName.ToString(),
+        Chat->SenderTribeName.ToString(),
+        std::to_string(Chat->SenderId),
+        Chat->Receiver.ToString(),
+        std::to_string(Chat->SenderTeamIndex),
+        std::to_string(Chat->ReceivedTime),
+        std::to_string(Chat->RadioFrequency),
+        std::to_string(Chat->senderPlatform),
+        std::to_string(Chat->SenderIsAdmin));
+
+    if (Chat->SendMode != EChatSendMode::GlobalChat && Chat->SendMode != EChatSendMode::GlobalTribeChat)
+    {
+        
+        if (DiscordGlobalChat::config["General"].value("ShowIcons", false) && (Chat->senderPlatform != 2 && Chat->senderPlatform != 3))
+        {
+            Chat->SenderIcon = GetPlayerIcons(Chat, _this);
+        }
+        else
+        {
+            Chat->SenderIcon = nullptr;
+        }
+
+        SendDiscord(Chat);
+        LogChat(Chat);
+    }
+
+    // override ally and local chat chat message color
+    if ((Chat->SendMode == EChatSendMode::AllianceChat || Chat->ChatType == EChatType::AllianceChat) || (Chat->SendMode == EChatSendMode::LocalChat || Chat->ChatType == EChatType::ProximityChat))
+    {
+        Chat->Message = ParseEmoticons(Chat->SendMode, &Chat->Message);
+    }
+
+    AShooterPlayerController_ClientChatMessage_original(_this, Chat);
 }
-#endif
 
 void SetHooks(bool addHooks = true)
 {
-#if 0
 	if (addHooks)
 	{
-		AsaApi::GetHooks().SetHook("AShooterCharacter.Die(float,FDamageEvent&,AController*,AActor*)", &Hook_AShooterCharacter_Die, &AShooterCharacter_Die_original);
+        AsaApi::GetHooks().SetHook("AShooterPlayerController.ClientChatMessage(FPrimalChatMessage)", &Hook_AShooterPlayerController_ClientChatMessage, &AShooterPlayerController_ClientChatMessage_original);
 	}
 	else
 	{
-		AsaApi::GetHooks().DisableHook("AShooterCharacter.Die(float,FDamageEvent&,AController*,AActor*)", &Hook_AShooterCharacter_Die);
+        AsaApi::GetHooks().DisableHook("AShooterPlayerController.ClientChatMessage(FPrimalChatMessage)", &Hook_AShooterPlayerController_ClientChatMessage);
 	}
-#endif
 
 }

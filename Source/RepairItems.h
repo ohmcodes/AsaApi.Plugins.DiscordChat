@@ -1,4 +1,5 @@
 
+#if 0
 void RepairItemsCallback(AShooterPlayerController* pc, FString* param, int, int)
 {
 	Log::GetLog()->warn("Function: {}", __FUNCTION__);
@@ -138,3 +139,5 @@ void DeletePlayerCallback(AShooterPlayerController* pc, FString* param, int, int
 
 	AsaApi::GetApiUtils().SendNotification(pc, FColorList::Orange, 1.3f, 15.0f, nullptr, "Player deleted");
 }
+
+#endif

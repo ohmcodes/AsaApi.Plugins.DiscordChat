@@ -2,32 +2,12 @@
 
 void AddOrRemoveCommands(bool addCmd = true)
 {
-#if 0
-	const FString RepairItems = DiscordGlobalChat::config["Commands"]["RepairItemCMD"].get<std::string>().c_str();
-	if (!RepairItems.IsEmpty())
+	if (addCmd)
 	{
-		if (addCmd)
-		{
-			AsaApi::GetCommands().AddChatCommand(RepairItems, &RepairItemsCallback);
-		}
-		else
-		{
-			AsaApi::GetCommands().RemoveChatCommand(RepairItems);
-		}
+		AsaApi::GetCommands().AddOnChatMessageCallback("ChatMessageCallback", &ChatMessageCallback);
 	}
-
-	const FString DeletePlayer = DiscordGlobalChat::config["Commands"]["DeletePlayerCMD"].get<std::string>().c_str();
-	if (!DeletePlayer.IsEmpty())
+	else
 	{
-		if (addCmd)
-		{
-			AsaApi::GetCommands().AddChatCommand(DeletePlayer, &DeletePlayerCallback);
-		}
-		else
-		{
-			AsaApi::GetCommands().RemoveChatCommand(DeletePlayer);
-		}
+		AsaApi::GetCommands().RemoveOnChatMessageCallback("ChatMessageCallback");
 	}
-#endif
-
 }
