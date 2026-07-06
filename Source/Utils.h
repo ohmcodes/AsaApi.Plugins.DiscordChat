@@ -981,6 +981,74 @@ void LogChat(FPrimalChatMessage* Chat)
 	}
 }
 
+FPrimalChatMessage ConstructMsg(AShooterPlayerController* player_controller, FString* Message, int SendMode, int SenderPlatform)
+{
+	FString playername;
+	player_controller->GetPlayerCharacterName(&playername);
+
+	FString steamName;
+	unsigned int playerID = player_controller->GetLinkedPlayerID();
+	player_controller->GetPlatformNameFromId(&steamName, playerID);
+
+	FPrimalChatMessage msg;
+	msg.SenderName = playername;
+	msg.SenderSteamName = steamName;
+	msg.SenderTribeName = player_controller->GetTribeName();
+	msg.SenderId = playerID;
+	msg.Message = *Message;
+	msg.SenderTeamIndex = player_controller->TargetingTeamField();
+	msg.SendMode = GetChatSendModeIntType(SendMode);
+	msg.ChatType = GetChatTypeIntType(SendMode);
+	msg.SenderIcon = nullptr;
+	msg.senderPlatform = (unsigned char)SenderPlatform;
+	msg.UserId = player_controller->GetEOSId(); //required on console player chat
+	msg.SenderTeamIndex = player_controller->TargetingTeamField();
+	msg.SenderIsAdmin = (unsigned char)player_controller->bIsAdmin().Get();
+	
+
+	return msg;
+}
+
+void SendMessageToAll(FPrimalChatMessage msg)
+{
+	// Get All Players for sending
+	const auto& player_controllers = AsaApi::GetApiUtils().GetWorld()->PlayerControllerListField();
+
+	// Player loop
+	for (TWeakObjectPtr<APlayerController> pc : player_controllers)
+	{
+		AShooterPlayerController* shooter_pc = static_cast<AShooterPlayerController*>(pc.Get());
+
+		// remove compairing tribe id instead
+		//FString tribename_pc = static_cast<APrimalCharacter*>(shooter_pc->CharacterField().Get())->TribeNameField();
+
+		//int receiverPlatform = GetPlayerPlatform(shooter_pc->GetEOSId());
+
+		//int receiver_tribe_id = AsaApi::GetApiUtils().GetTribeID(shooter_pc);
+
+		// Filter tribe
+		if (shooter_pc)
+		{
+			// && shooter_pc->GetWorld()
+			// && tribe_id == receiver_tribe_id
+			FString receiverPlayername;
+			shooter_pc->GetPlayerCharacterName(&receiverPlayername);
+			msg.Receiver = receiverPlayername;
+
+			/*if (receiverPlatform == 2 || receiverPlatform == 3)
+			{
+				msg.SenderIcon = nullptr;
+			}
+			else
+			{
+				msg.SenderIcon = currentIcon;
+			}*/
+
+			Log::GetLog()->info("Message when change mode {}", msg.Message.ToString());
+			shooter_pc->ClientChatMessage(msg);
+		}
+	}
+}
 
 #if 0
 void SaveSqlCrossServerChat(FPrimalChatMessage* Chat)
@@ -1081,6 +1149,11 @@ bool ChatMessageCallback(AShooterPlayerController* player_controller, FString* M
 		eosID.ToString()
 	
 	);
+
+	FPrimalChatMessage msg = ConstructMsg(player_controller,Message,SendMode,SenderPlatform);
+
+	SendMessageToAll(msg);
+
 	
 	return true;
 
