@@ -1035,24 +1035,47 @@ void SaveSqlCrossServerChat(FPrimalChatMessage* Chat)
 
 bool ChatMessageCallback(AShooterPlayerController* player_controller, FString* Message, int SendMode, int SenderPlatform, bool spam_check, bool command_executed)
 {
-	FString platformname;
-	player_controller->GetPlatformNameFromId(&platformname, player_controller->GetLinkedPlayerID());
+	FString steamName;
+	player_controller->GetPlatformNameFromId(&steamName, player_controller->GetLinkedPlayerID());
 
 	FString playername;
 	player_controller->GetPlayerCharacterName(&playername);
 
+	FString tribeName = player_controller->GetTribeName();
 
+	unsigned int playerID = player_controller->LinkedPlayerIDField();
 
+	int tribeID = player_controller->TargetingTeamField();
 
+	FString eosID = player_controller->GetEOSId();
+
+	/* TEST playername SeanMarco | platformname Marco | msg test 123 global | sendmode 0 | senderplatform 1 | spam_check 0 | cmd_exec 0 */
 	Log::GetLog()->info(
 		"TEST playername {} | platformname {} | msg {} | sendmode {} | senderplatform {} | spam_check {} | cmd_exec {} ", 
 		playername.ToString(), 
-		platformname.ToString(), 
+		steamName.ToString(),
 		Message->ToString(), 
 		SendMode, 
 		SenderPlatform, 
 		std::to_string(spam_check), 
 		std::to_string(command_executed));
+
+	FPrimalChatMessage logMsg{};
+
+	logMsg.SenderName = playername;
+	logMsg.SenderSteamName = steamName;
+	logMsg.SenderTribeName = tribeName;
+	logMsg.SenderId = playerID;
+	logMsg.Message = *Message;
+	logMsg.SenderTeamIndex = tribeID;
+	logMsg.SendMode = GetChatSendModeIntType(SendMode);
+	logMsg.ChatType = GetChatTypeIntType(SendMode);
+	logMsg.senderPlatform = SenderPlatform;
+	logMsg.UserId = eosID;
+	logMsg.SenderIsAdmin = (unsigned char)player_controller->bIsAdmin()();
+
+
+	player_controller->LogChatMessage(&logMsg);
 
 	return true;
 
