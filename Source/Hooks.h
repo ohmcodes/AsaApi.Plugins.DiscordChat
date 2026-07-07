@@ -40,6 +40,8 @@ void Hook_AShooterPlayerController_ClientChatMessage(AShooterPlayerController* _
 
     Chat->SenderName = FString::Format("<RichColor Color=\"{}\">{}</>", "0,0,1,1", Chat->SenderName.ToString());
 
+    Chat->SenderTribeName = FString::Format("<RichColor Color=\"{}\">{}</>", "0,0,1,1", Chat->SenderTribeName.ToString());
+
     Chat->Message = FString::Format("<RichColor Color=\"{}\">{}</>", "0,0,1,1", Chat->Message.ToString());
 
 
