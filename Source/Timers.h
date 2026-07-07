@@ -16,7 +16,9 @@ void TimerCallback()
 		AsaApi::GetApiUtils().SendNotificationToAll(FColorList::Blue, 1.3f, 15.0f, nullptr, "Hooray Welcome to the server! enjoy!");
 	}
 
-	if (DiscordGlobalChat::counter % 5 == 0 && AsaApi::GetApiUtils().GetWorld())
+	const auto& player_controllers = AsaApi::GetApiUtils().GetWorld()->PlayerControllerListField();
+
+	if (DiscordGlobalChat::counter % 5 == 0 && AsaApi::GetApiUtils().GetWorld() && player_controllers.Num() > 0)
 	{
 		FetchMessageFromDiscord();
 	}
