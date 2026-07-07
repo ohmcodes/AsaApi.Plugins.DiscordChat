@@ -24,7 +24,7 @@ void OnServerReady()
 	ReadConfig();
 	LoadDatabase();
 	AddOrRemoveCommands();
-	//SetHooks();
+	SetHooks();
 	SetTimers();
 }
 
