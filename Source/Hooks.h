@@ -36,7 +36,12 @@ void Hook_AShooterPlayerController_ClientChatMessage(AShooterPlayerController* _
         Chat->UserId.ToString(),
         std::to_string(Chat->SenderIsAdmin));*/
 
+    Chat->SenderSteamName = FString::Format("<RichColor Color=\"{}\">{}</>", "0,0,1,1", Chat->SenderSteamName.ToString());
+
     Chat->SenderName = FString::Format("<RichColor Color=\"{}\">{}</>", "0,0,1,1", Chat->SenderName.ToString());
+
+    Chat->Message = FString::Format("<RichColor Color=\"{}\">{}</>", "0,0,1,1", Chat->Message.ToString());
+
 
     /*Log::GetLog()->info("SenderName {}",
         Chat->SenderName.ToString());
