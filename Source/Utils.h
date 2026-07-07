@@ -1159,9 +1159,10 @@ bool ChatMessageCallback(AShooterPlayerController* player_controller, FString* M
 
 	
 
-	SendMessageToAll(mfpcm);
+	//SendMessageToAll(mfpcm);
 
 	
+	// return false to log global chat
 	return false;
 
 
