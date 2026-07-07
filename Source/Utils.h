@@ -114,6 +114,9 @@ void SendMessageToDiscordCallback(bool success, std::string results, std::unorde
 
 void SendMessageToDiscord(FString msg)
 {
+
+	// Note: This cant be on Hooks or else every messages will be send to discord
+
 	//Log::GetLog()->warn("Function: {}", __FUNCTION__);
 
 	if (msg.StartsWith("Discord:")) { return; }
@@ -1164,7 +1167,7 @@ bool ChatMessageCallback(AShooterPlayerController* player_controller, FString* M
 	*/
 #pragma endregion
 
-	
+	SendMessageToDiscord(mfpcm.msg.Message);
 
 	//SendMessageToAll(mfpcm);
 
