@@ -12,6 +12,8 @@ void FetchMessageFromDiscordCallback(bool success, std::string results)
 {
 	Log::GetLog()->warn("Function: {}", __FUNCTION__);
 
+	Log::GetLog()->info("results: {} ", results);
+
 	if (success)
 	{
 		if(results.empty()) return;
@@ -68,9 +70,14 @@ void FetchMessageFromDiscord()
 
 	std::string botToken = DiscordGlobalChat::config["DiscordBot"].value("BotToken","");
 
+	Log::GetLog()->warn("BotToken {}", botToken);
+
 	std::string channelID = DiscordGlobalChat::config["DiscordBot"].value("ChannelID", "");
 
+	Log::GetLog()->warn("ChannelID {}", channelID);
+
 	std::string apiURL = FString::Format("https://discord.com/api/v10/channels/{}/messages?limit=1", channelID).ToString();
+
 
 	std::vector<std::string> headers = {
 		"Content-Type: application/json",
