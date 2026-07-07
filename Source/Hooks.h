@@ -34,7 +34,7 @@ void Hook_AShooterPlayerController_ClientChatMessage(AShooterPlayerController* _
         std::to_string(Chat->RadioFrequency),
         std::to_string(Chat->senderPlatform),
         Chat->UserId.ToString(),
-        Chat->SenderIcon->NameField().ToString().ToString(),
+        Chat->SenderIcon->NamePrivateField().ToString().ToString(),
         std::to_string(Chat->SenderIsAdmin));
 
     /*Log::GetLog()->info("SenderName {}",
