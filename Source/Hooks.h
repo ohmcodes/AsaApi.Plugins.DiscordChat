@@ -38,6 +38,39 @@ void Hook_AShooterPlayerController_ClientChatMessage(AShooterPlayerController* _
         std::to_string(Chat->senderPlatform),
         std::to_string(Chat->SenderIsAdmin));
 
+    Log::GetLog()->info("SenderName {}",
+        Chat->SenderName.ToString());
+
+    Log::GetLog()->info("SenderSteamName {}",
+        Chat->SenderSteamName.ToString());
+
+    Log::GetLog()->info("SenderTribeName {}",
+        Chat->SenderTribeName.ToString());
+
+    Log::GetLog()->info("SenderId {}",
+        std::to_string(Chat->SenderId));
+
+    Log::GetLog()->info("Receiver {}",
+        Chat->Receiver.ToString());
+
+    Log::GetLog()->info("SenderTeamIndex {}",
+        std::to_string(Chat->SenderTeamIndex));
+
+    Log::GetLog()->info("ReceivedTime {}",
+        std::to_string(Chat->ReceivedTime));
+
+    Log::GetLog()->info("RadioFreq {}",
+        std::to_string(Chat->RadioFrequency));
+
+    Log::GetLog()->info("senderPlatform {}",
+        std::to_string(Chat->senderPlatform));
+
+    Log::GetLog()->info("UserId {}",
+        Chat->UserId.ToString());
+
+    Log::GetLog()->info("SenderIsAdmin {}",
+        std::to_string(Chat->SenderIsAdmin));
+
     Log::GetLog()->info("Log after");
 
     if (Chat->SendMode != EChatSendMode::GlobalChat && Chat->SendMode != EChatSendMode::GlobalTribeChat)
