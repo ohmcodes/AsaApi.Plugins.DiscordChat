@@ -23,10 +23,7 @@ void Hook_AShooterPlayerController_ClientChatMessage(AShooterPlayerController* _
     FString UserId;
     unsigned __int8 SenderIsAdmin : 1;*/
 
-
-    Log::GetLog()->info("Log before");
-
-    Log::GetLog()->info("SenderName {} SenderSteamName {} SenderTribeName {} SenderId {} Receiver {} SenderTeamIndex {} ReceivedTime {} RadioFreq {} senderPlatform {} UserId {} SenderIsAdmin {}",
+    Log::GetLog()->info("SenderName {} SenderSteamName {} SenderTribeName {} SenderId {} Receiver {} SenderTeamIndex {} ReceivedTime {} RadioFreq {} senderPlatform {} UserId {} SenderIcon {} SenderIsAdmin {}",
         Chat->SenderName.ToString(),
         Chat->SenderSteamName.ToString(),
         Chat->SenderTribeName.ToString(),
@@ -36,9 +33,11 @@ void Hook_AShooterPlayerController_ClientChatMessage(AShooterPlayerController* _
         std::to_string(Chat->ReceivedTime),
         std::to_string(Chat->RadioFrequency),
         std::to_string(Chat->senderPlatform),
+        Chat->UserId.ToString(),
+        Chat->SenderIcon->NameField().ToString().ToString(),
         std::to_string(Chat->SenderIsAdmin));
 
-    Log::GetLog()->info("SenderName {}",
+    /*Log::GetLog()->info("SenderName {}",
         Chat->SenderName.ToString());
 
     Log::GetLog()->info("SenderSteamName {}",
@@ -71,7 +70,7 @@ void Hook_AShooterPlayerController_ClientChatMessage(AShooterPlayerController* _
     Log::GetLog()->info("SenderIsAdmin {}",
         std::to_string(Chat->SenderIsAdmin));
 
-    Log::GetLog()->info("Log after");
+    Log::GetLog()->info("Log after");*/
 
     if (Chat->SendMode != EChatSendMode::GlobalChat && Chat->SendMode != EChatSendMode::GlobalTribeChat)
     {
