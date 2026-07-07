@@ -981,8 +981,10 @@ void LogChat(FPrimalChatMessage* Chat)
 	}
 }
 
-FPrimalChatMessage ConstructMsg(AShooterPlayerController* player_controller, FString* Message, int SendMode, int SenderPlatform)
+ModifiedFPrimalChatMessage ConstructMsg(AShooterPlayerController* player_controller, FString* Message, int SendMode, int SenderPlatform)
 {
+	ModifiedFPrimalChatMessage mfpcm;
+
 	FString playername;
 	player_controller->GetPlayerCharacterName(&playername);
 
@@ -1005,11 +1007,20 @@ FPrimalChatMessage ConstructMsg(AShooterPlayerController* player_controller, FSt
 	msg.SenderTeamIndex = player_controller->TargetingTeamField();
 	msg.SenderIsAdmin = (unsigned char)player_controller->bIsAdmin().Get();
 	
+	mfpcm.msg = msg;
+	mfpcm.spc = *player_controller;
+	mfpcm.SendMode = SendMode;
+	mfpcm.SenderPlatform = SenderPlatform;
 
-	return msg;
+	return mfpcm;
 }
 
-void SendMessageToAll(FPrimalChatMessage msg)
+void ColorMessage(ModifiedFPrimalChatMessage& mfpcm)
+{
+
+}
+
+void SendMessageToAll(ModifiedFPrimalChatMessage mfpcm)
 {
 	// Get All Players for sending
 	const auto& player_controllers = AsaApi::GetApiUtils().GetWorld()->PlayerControllerListField();
@@ -1019,34 +1030,19 @@ void SendMessageToAll(FPrimalChatMessage msg)
 	{
 		AShooterPlayerController* shooter_pc = static_cast<AShooterPlayerController*>(pc.Get());
 
-		// remove compairing tribe id instead
-		//FString tribename_pc = static_cast<APrimalCharacter*>(shooter_pc->CharacterField().Get())->TribeNameField();
+		if (!shooter_pc) { continue; }
 
-		//int receiverPlatform = GetPlayerPlatform(shooter_pc->GetEOSId());
+		// If sendmode is tribe and receiver is in the same tribe as sender
+		if (mfpcm.msg.SendMode == 1 && mfpcm.spc.TargetingTeamField() != shooter_pc->TargetingTeamField()) { continue; }
 
-		//int receiver_tribe_id = AsaApi::GetApiUtils().GetTribeID(shooter_pc);
+		ColorMessage(mfpcm);
+		
+		FString receiverPlayername;
+		shooter_pc->GetPlayerCharacterName(&receiverPlayername);
 
-		// Filter tribe
-		if (shooter_pc)
-		{
-			// && shooter_pc->GetWorld()
-			// && tribe_id == receiver_tribe_id
-			FString receiverPlayername;
-			shooter_pc->GetPlayerCharacterName(&receiverPlayername);
-			msg.Receiver = receiverPlayername;
+		mfpcm.msg.Receiver = receiverPlayername;
 
-			/*if (receiverPlatform == 2 || receiverPlatform == 3)
-			{
-				msg.SenderIcon = nullptr;
-			}
-			else
-			{
-				msg.SenderIcon = currentIcon;
-			}*/
-
-			Log::GetLog()->info("Message when change mode {}", msg.Message.ToString());
-			shooter_pc->ClientChatMessage(msg);
-		}
+		shooter_pc->ClientChatMessage(mfpcm.msg);
 	}
 }
 
@@ -1114,10 +1110,19 @@ bool ChatMessageCallback(AShooterPlayerController* player_controller, FString* M
 
 	if (spam_check || command_executed) return false;
 
-	// local / ally
-	//if (SendMode == 2 || SendMode == 3) return false;
+	// Construct message
+	ModifiedFPrimalChatMessage mfpcm = ConstructMsg(player_controller, Message, SendMode, SenderPlatform);
+
+	// log chat
+	LogChat(&mfpcm.msg);
+
+	// Not processing local and ally  
+	if (SendMode == 2 || SendMode == 3) return false;
+
 #pragma endregion
 
+#pragma region test block
+	/*
 	FString steamName;
 	player_controller->GetPlatformNameFromId(&steamName, player_controller->GetLinkedPlayerID());
 
@@ -1135,24 +1140,26 @@ bool ChatMessageCallback(AShooterPlayerController* player_controller, FString* M
 	FString mapname;
 	AsaApi::GetApiUtils().GetWorld()->GetMapName(&mapname);
 
-	/* TEST playername SeanMarco | platformname Marco | msg test 123 global | sendmode 0 | senderplatform 1 | spam_check 0 | cmd_exec 0 */
+	//OUTPUT: TEST playername SeanMarco | platformname Marco | msg test 123 global | sendmode 0 | senderplatform 1 | spam_check 0 | cmd_exec 0
 	Log::GetLog()->info(
-		"TEST playername {} | platformname {} | msg {} | sendmode {} | senderplatform {} | spam_check {} | cmd_exec {} | tribename {} | eosID {}", 
-		playername.ToString(), 
+		"TEST playername {} | platformname {} | msg {} | sendmode {} | senderplatform {} | spam_check {} | cmd_exec {} | tribename {} | eosID {}",
+		playername.ToString(),
 		steamName.ToString(),
-		Message->ToString(), 
-		SendMode, 
-		SenderPlatform, 
-		std::to_string(spam_check), 
+		Message->ToString(),
+		SendMode,
+		SenderPlatform,
+		std::to_string(spam_check),
 		std::to_string(command_executed),
 		tribeName.ToString(),
 		eosID.ToString()
-	
+
 	);
+	*/
+#pragma endregion
 
-	FPrimalChatMessage msg = ConstructMsg(player_controller,Message,SendMode,SenderPlatform);
+	
 
-	SendMessageToAll(msg);
+	SendMessageToAll(mfpcm);
 
 	
 	return true;

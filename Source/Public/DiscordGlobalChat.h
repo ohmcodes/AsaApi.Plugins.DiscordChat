@@ -24,3 +24,11 @@ namespace DiscordGlobalChat
 	inline std::string lastMessageID;
 
 }
+
+struct ModifiedFPrimalChatMessage
+{
+	FPrimalChatMessage msg{};
+	AShooterPlayerController spc;
+	int SendMode;
+	int SenderPlatform;
+};
