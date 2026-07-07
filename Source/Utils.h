@@ -37,11 +37,11 @@ void FetchMessageFromDiscordCallback(bool success, std::string results)
 
 			std::string msg = resObj["content"].get<std::string>();
 			
-			if (!startsWith(msg, "!"))
-			{
-				//Log::GetLog()->warn("message not startswith !");
-				return;
-			}
+			//if (!startsWith(msg, "!"))
+			//{
+			//	//Log::GetLog()->warn("message not startswith !");
+			//	return;
+			//}
 
 			if (DiscordGlobalChat::lastMessageID == resObj["id"].get<std::string>()) return;
 			
@@ -65,14 +65,15 @@ void FetchMessageFromDiscordCallback(bool success, std::string results)
 void FetchMessageFromDiscord()
 {
 	//Log::GetLog()->warn("Function: {}", __FUNCTION__);
+	// TODO: Validate token and channelID
 
 	std::string botToken = DiscordGlobalChat::config["DiscordBot"].value("BotToken","");
 
-	Log::GetLog()->warn("BotToken {}", botToken);
+	if (botToken.empty()) return;
 
 	std::string channelID = DiscordGlobalChat::config["DiscordBot"].value("ChannelID", "");
 
-	Log::GetLog()->warn("ChannelID {}", channelID);
+	if (channelID.empty()) return;
 
 	std::string apiURL = FString::Format("https://discord.com/api/v10/channels/{}/messages?limit=1", channelID).ToString();
 
