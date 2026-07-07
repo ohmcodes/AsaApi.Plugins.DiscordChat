@@ -12,7 +12,9 @@ void FetchMessageFromDiscordCallback(bool success, std::string results)
 {
 	Log::GetLog()->warn("Function: {}", __FUNCTION__);
 
-	Log::GetLog()->info("results: {} ", results);
+	Log::GetLog()->info("success: {} ", success);
+
+	//Log::GetLog()->info("results: {} ", results);
 
 	if (success)
 	{
