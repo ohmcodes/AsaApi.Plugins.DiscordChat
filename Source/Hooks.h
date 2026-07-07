@@ -23,7 +23,7 @@ void Hook_AShooterPlayerController_ClientChatMessage(AShooterPlayerController* _
     FString UserId;
     unsigned __int8 SenderIsAdmin : 1;*/
 
-    Log::GetLog()->info("SenderName {} SenderSteamName {} SenderTribeName {} SenderId {} Receiver {} SenderTeamIndex {} ReceivedTime {} RadioFreq {} senderPlatform {} UserId {} SenderIcon {} SenderIsAdmin {}",
+    Log::GetLog()->info("SenderName {} SenderSteamName {} SenderTribeName {} SenderId {} Receiver {} SenderTeamIndex {} ReceivedTime {} RadioFreq {} senderPlatform {} UserId {} SenderIsAdmin {}",
         Chat->SenderName.ToString(),
         Chat->SenderSteamName.ToString(),
         Chat->SenderTribeName.ToString(),
@@ -34,7 +34,6 @@ void Hook_AShooterPlayerController_ClientChatMessage(AShooterPlayerController* _
         std::to_string(Chat->RadioFrequency),
         std::to_string(Chat->senderPlatform),
         Chat->UserId.ToString(),
-        Chat->SenderIcon->NamePrivateField().ToString().ToString(),
         std::to_string(Chat->SenderIsAdmin));
 
     /*Log::GetLog()->info("SenderName {}",
@@ -101,7 +100,7 @@ void SetHooks(bool addHooks = true)
 {
 	if (addHooks)
 	{
-        AsaApi::GetHooks().SetHook("AShooterPlayerController.ClientChatMessage(FPrimalChatMessage)", &Hook_AShooterPlayerController_ClientChatMessage, &AShooterPlayerController_ClientChatMessage_original);
+        //AsaApi::GetHooks().SetHook("AShooterPlayerController.ClientChatMessage(FPrimalChatMessage)", &Hook_AShooterPlayerController_ClientChatMessage, &AShooterPlayerController_ClientChatMessage_original);
 	}
 	else
 	{
