@@ -112,10 +112,11 @@ void SendMessageToDiscordCallback(bool success, std::string results, std::unorde
 	}
 }
 
-void SendMessageToDiscord(std::string msg)
+void SendMessageToDiscord(FString msg)
 {
+	//Log::GetLog()->warn("Function: {}", __FUNCTION__);
 
-	Log::GetLog()->warn("Function: {}", __FUNCTION__);
+	if (msg.StartsWith("Discord:")) { return; }
 
 	
 	std::string webhook = DiscordGlobalChat::config["DiscordBot"].value("Webhook", "");
@@ -125,7 +126,7 @@ void SendMessageToDiscord(std::string msg)
 
 	FString msgFormat = L"{{\"content\":\"{}\",\"username\":\"{}\",\"avatar_url\":\"{}\"}}";
 
-	FString msgOutput = FString::Format(*msgFormat, msg, "ArkBot", botImgUrl);
+	FString msgOutput = FString::Format(*msgFormat, msg.ToString(), "ArkBot", botImgUrl);
 
 	std::vector<std::string> headers = {
 		"Content-Type: application/json",

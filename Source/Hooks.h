@@ -38,7 +38,7 @@ void Hook_AShooterPlayerController_ClientChatMessage(AShooterPlayerController* _
 
     LogChat(Chat);
 
-    SendMessageToDiscord(Chat->Message.ToString());
+    SendMessageToDiscord(Chat->Message);
 
     /*Log::GetLog()->info("SenderName {}",
         Chat->SenderName.ToString());
