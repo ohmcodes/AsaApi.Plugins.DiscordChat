@@ -49,7 +49,7 @@ void Hook_AShooterPlayerController_ClientChatMessage(AShooterPlayerController* _
             Chat->SenderIcon = nullptr;
         }*/
 
-        SendDiscord(Chat);
+        //SendDiscord(Chat);
         LogChat(Chat);
     }
 
