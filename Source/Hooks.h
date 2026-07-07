@@ -40,14 +40,14 @@ void Hook_AShooterPlayerController_ClientChatMessage(AShooterPlayerController* _
     if (Chat->SendMode != EChatSendMode::GlobalChat && Chat->SendMode != EChatSendMode::GlobalTribeChat)
     {
         
-        if (DiscordGlobalChat::config["General"].value("ShowIcons", false) && (Chat->senderPlatform != 2 && Chat->senderPlatform != 3))
+        /*if (DiscordGlobalChat::config["General"].value("ShowIcons", false) && (Chat->senderPlatform != 2 && Chat->senderPlatform != 3))
         {
             Chat->SenderIcon = GetPlayerIcons(Chat, _this);
         }
         else
         {
             Chat->SenderIcon = nullptr;
-        }
+        }*/
 
         SendDiscord(Chat);
         LogChat(Chat);
