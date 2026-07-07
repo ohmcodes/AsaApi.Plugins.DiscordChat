@@ -1162,7 +1162,7 @@ bool ChatMessageCallback(AShooterPlayerController* player_controller, FString* M
 	SendMessageToAll(mfpcm);
 
 	
-	return true;
+	return false;
 
 
 
