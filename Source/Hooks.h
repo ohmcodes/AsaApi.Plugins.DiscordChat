@@ -3,8 +3,8 @@
 DECLARE_HOOK(AShooterPlayerController_ClientChatMessage, void, AShooterPlayerController*, FPrimalChatMessage*);
 void Hook_AShooterPlayerController_ClientChatMessage(AShooterPlayerController* _this, FPrimalChatMessage* Chat)
 {
-    if (DiscordGlobalChat::isDebug == true)
-        Log::GetLog()->info("Hook_AShooterPlayerController_ClientChatMessage() Called");
+    /*if (DiscordGlobalChat::isDebug == true)
+        Log::GetLog()->info("Hook_AShooterPlayerController_ClientChatMessage() Called");*/
 
     /*FPrimalChatMessage{
     FString SenderName;
@@ -23,7 +23,7 @@ void Hook_AShooterPlayerController_ClientChatMessage(AShooterPlayerController* _
     FString UserId;
     unsigned __int8 SenderIsAdmin : 1;*/
 
-    Log::GetLog()->info("SenderName {} SenderSteamName {} SenderTribeName {} SenderId {} Receiver {} SenderTeamIndex {} ReceivedTime {} RadioFreq {} senderPlatform {} UserId {} SenderIsAdmin {}",
+    /*Log::GetLog()->info("SenderName {} SenderSteamName {} SenderTribeName {} SenderId {} Receiver {} SenderTeamIndex {} ReceivedTime {} RadioFreq {} senderPlatform {} UserId {} SenderIsAdmin {}",
         Chat->SenderName.ToString(),
         Chat->SenderSteamName.ToString(),
         Chat->SenderTribeName.ToString(),
@@ -34,7 +34,7 @@ void Hook_AShooterPlayerController_ClientChatMessage(AShooterPlayerController* _
         std::to_string(Chat->RadioFrequency),
         std::to_string(Chat->senderPlatform),
         Chat->UserId.ToString(),
-        std::to_string(Chat->SenderIsAdmin));
+        std::to_string(Chat->SenderIsAdmin));*/
 
     /*Log::GetLog()->info("SenderName {}",
         Chat->SenderName.ToString());
@@ -84,14 +84,14 @@ void Hook_AShooterPlayerController_ClientChatMessage(AShooterPlayerController* _
         }*/
 
         //SendDiscord(Chat);
-        LogChat(Chat);
+        //LogChat(Chat);
     }
 
     // override ally and local chat chat message color
-    if ((Chat->SendMode == EChatSendMode::AllianceChat || Chat->ChatType == EChatType::AllianceChat) || (Chat->SendMode == EChatSendMode::LocalChat || Chat->ChatType == EChatType::ProximityChat))
+    /*if ((Chat->SendMode == EChatSendMode::AllianceChat || Chat->ChatType == EChatType::AllianceChat) || (Chat->SendMode == EChatSendMode::LocalChat || Chat->ChatType == EChatType::ProximityChat))
     {
         Chat->Message = ParseEmoticons(Chat->SendMode, &Chat->Message);
-    }
+    }*/
 
     AShooterPlayerController_ClientChatMessage_original(_this, Chat);
 }
@@ -100,7 +100,7 @@ void SetHooks(bool addHooks = true)
 {
 	if (addHooks)
 	{
-        //AsaApi::GetHooks().SetHook("AShooterPlayerController.ClientChatMessage(FPrimalChatMessage)", &Hook_AShooterPlayerController_ClientChatMessage, &AShooterPlayerController_ClientChatMessage_original);
+        AsaApi::GetHooks().SetHook("AShooterPlayerController.ClientChatMessage(FPrimalChatMessage)", &Hook_AShooterPlayerController_ClientChatMessage, &AShooterPlayerController_ClientChatMessage_original);
 	}
 	else
 	{
