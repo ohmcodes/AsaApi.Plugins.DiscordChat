@@ -36,6 +36,8 @@ void Hook_AShooterPlayerController_ClientChatMessage(AShooterPlayerController* _
         Chat->UserId.ToString(),
         std::to_string(Chat->SenderIsAdmin));*/
 
+    Chat->SenderName = FString::Format("<RichColor Color=\"{}\">{}</>", "0,0,1,1", Chat->SenderName.ToString());
+
     /*Log::GetLog()->info("SenderName {}",
         Chat->SenderName.ToString());
 
@@ -73,6 +75,8 @@ void Hook_AShooterPlayerController_ClientChatMessage(AShooterPlayerController* _
 
     if (Chat->SendMode != EChatSendMode::GlobalChat && Chat->SendMode != EChatSendMode::GlobalTribeChat)
     {
+
+        
         
         /*if (DiscordGlobalChat::config["General"].value("ShowIcons", false) && (Chat->senderPlatform != 2 && Chat->senderPlatform != 3))
         {
