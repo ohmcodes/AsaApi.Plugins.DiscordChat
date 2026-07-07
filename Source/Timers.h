@@ -1,6 +1,10 @@
 
 void TimerCallback()
 {
+	UWorld* world = AsaApi::GetApiUtils().GetWorld();
+
+	if (!world) return;
+
 	// sample broadcast every 20secs
 	if (DiscordGlobalChat::counter == 20)
 	{
@@ -18,7 +22,7 @@ void TimerCallback()
 
 	const auto& player_controllers = AsaApi::GetApiUtils().GetWorld()->PlayerControllerListField();
 
-	if (DiscordGlobalChat::counter % 5 == 0 && AsaApi::GetApiUtils().GetWorld() && player_controllers.Num() > 0)
+	if (DiscordGlobalChat::counter % 5 == 0 && player_controllers.Num() > 0)
 	{
 		FetchMessageFromDiscord();
 	}
