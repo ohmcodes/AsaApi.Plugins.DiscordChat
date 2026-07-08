@@ -90,14 +90,12 @@ void FetchMessageFromDiscord()
 		"Authorization: Bot " + botToken
 	};
 
-	bool req = DiscordGlobalChat::req.CreateGetRequest(apiURL, FetchMessageFromDiscordCallback, headers);
-
-	if (!req)
-		Log::GetLog()->error("Failed to perform Get request. req = {}", req);
-
 	try
 	{
-		
+		bool req = DiscordGlobalChat::req.CreateGetRequest(apiURL, FetchMessageFromDiscordCallback, headers);
+
+		if (!req)
+			Log::GetLog()->error("Failed to perform Get request. req = {}", req);
 	}
 	catch (const std::exception& error)
 	{
