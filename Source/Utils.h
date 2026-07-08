@@ -16,48 +16,47 @@ void FetchMessageFromDiscordCallback(bool success, std::string results)
 	{
 		if(results.empty()) return;
 
-		nlohmann::json parsed = nlohmann::json::parse(results);
-
-		if (parsed.is_null())
+		try
 		{
-			Log::GetLog()->warn("resObj is null");
-			return;
+			nlohmann::json parsed = nlohmann::json::parse(results);
+
+			if (parsed.is_null())
+			{
+				Log::GetLog()->warn("resObj is null");
+				return;
+			}
+			nlohmann::json  resObj = parsed[0];
+
+			auto globalName = resObj["author"]["global_name"];
+
+			// if not sent by bot
+			if (resObj.contains("bot") && globalName.is_null())
+			{
+				Log::GetLog()->warn("the sender is bot");
+				return;
+			}
+
+			std::string msg = resObj["content"].get<std::string>();
+
+			//if (!startsWith(msg, "!"))
+			//{
+			//	//Log::GetLog()->warn("message not startswith !");
+			//	return;
+			//}
+
+			if (DiscordGlobalChat::lastMessageID == resObj["id"].get<std::string>()) return;
+
+			std::string sender = fmt::format("Discord: {}", globalName.get<std::string>());
+
+			AsaApi::GetApiUtils().SendChatMessageToAll(FString(sender), msg.c_str());
+
+			DiscordGlobalChat::lastMessageID = resObj["id"].get<std::string>();
 		}
-		nlohmann::json  resObj = parsed[0];
-
-		auto globalName = resObj["author"]["global_name"];
-
-		// if not sent by bot
-		if (resObj.contains("bot") && globalName.is_null())
+		catch (const std::exception& error)
 		{
-			Log::GetLog()->warn("the sender is bot");
-			return;
+			[[maybe_unused]] const auto& err = error;
+			//log::getlog()->error("error parsing json results. error: {}",error.what());
 		}
-
-		std::string msg = resObj["content"].get<std::string>();
-
-		//if (!startsWith(msg, "!"))
-		//{
-		//	//Log::GetLog()->warn("message not startswith !");
-		//	return;
-		//}
-
-		if (DiscordGlobalChat::lastMessageID == resObj["id"].get<std::string>()) return;
-
-		std::string sender = fmt::format("Discord: {}", globalName.get<std::string>());
-
-		AsaApi::GetApiUtils().SendChatMessageToAll(FString(sender), msg.c_str());
-
-		DiscordGlobalChat::lastMessageID = resObj["id"].get<std::string>();
-
-		//try
-		//{
-		//	
-		//}
-		//catch (const std::exception& error)
-		//{
-		//	//Log::GetLog()->error("Error parsing JSON results. Error: {}",error.what());
-		//}
 	}
 	else
 	{
@@ -99,7 +98,8 @@ void FetchMessageFromDiscord()
 	}
 	catch (const std::exception& error)
 	{
-		Log::GetLog()->error("Failed to perform Get request. Error: {}", error.what());
+		[[maybe_unused]] const auto& err = error;
+		//Log::GetLog()->error("Failed to perform Get request. Error: {}", error.what());
 	}
 }
 
