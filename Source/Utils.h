@@ -10,7 +10,7 @@ static bool startsWith(const std::string& str, const std::string& prefix)
 
 void FetchMessageFromDiscordCallback(bool success, std::string results)
 {
-	Log::GetLog()->warn("Function: {}", __FUNCTION__);
+	//Log::GetLog()->warn("Function: {}", __FUNCTION__);
 
 	if (success)
 	{
@@ -18,13 +18,14 @@ void FetchMessageFromDiscordCallback(bool success, std::string results)
 
 		try
 		{
-			nlohmann::json resObj = nlohmann::json::parse(results)[0];
+			nlohmann::json parsed = nlohmann::json::parse(results);
 
-			if (resObj.is_null())
+			if (parsed.is_null())
 			{
 				Log::GetLog()->warn("resObj is null");
 				return;
 			}
+			nlohmann::json  resObj = parsed[0];
 
 			auto globalName = resObj["author"]["global_name"];
 
