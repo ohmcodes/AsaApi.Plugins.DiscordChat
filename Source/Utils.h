@@ -1126,8 +1126,8 @@ bool ChatMessageCallback(AShooterPlayerController* player_controller, FString* M
 	// Construct message
 	ModifiedFPrimalChatMessage mfpcm = ConstructMsg(player_controller, Message, SendMode, SenderPlatform);
 
-	// log chat
-	LogChat(&mfpcm.msg);
+	// log chat (transferred to hooks)
+	//LogChat(&mfpcm.msg);
 
 	// Not processing local and ally  
 	if (SendMode == 2 || SendMode == 3) return false;
