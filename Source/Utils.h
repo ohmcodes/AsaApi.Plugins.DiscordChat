@@ -95,14 +95,14 @@ void FetchMessageFromDiscord()
 	if (!req)
 		Log::GetLog()->error("Failed to perform Get request. req = {}", req);
 
-	/*try
+	try
 	{
 		
 	}
 	catch (const std::exception& error)
 	{
 		Log::GetLog()->error("Failed to perform Get request. Error: {}", error.what());
-	}*/
+	}
 }
 
 void SendMessageToDiscordCallback(bool success, std::string results, std::unordered_map<std::string, std::string> responseHeaders)
