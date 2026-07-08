@@ -16,46 +16,48 @@ void FetchMessageFromDiscordCallback(bool success, std::string results)
 	{
 		if(results.empty()) return;
 
-		try
+		nlohmann::json parsed = nlohmann::json::parse(results);
+
+		if (parsed.is_null())
 		{
-			nlohmann::json parsed = nlohmann::json::parse(results);
-
-			if (parsed.is_null())
-			{
-				Log::GetLog()->warn("resObj is null");
-				return;
-			}
-			nlohmann::json  resObj = parsed[0];
-
-			auto globalName = resObj["author"]["global_name"];
-
-			// if not sent by bot
-			if (resObj.contains("bot") && globalName.is_null())
-			{
-				Log::GetLog()->warn("the sender is bot");
-				return;
-			}
-
-			std::string msg = resObj["content"].get<std::string>();
-			
-			//if (!startsWith(msg, "!"))
-			//{
-			//	//Log::GetLog()->warn("message not startswith !");
-			//	return;
-			//}
-
-			if (DiscordGlobalChat::lastMessageID == resObj["id"].get<std::string>()) return;
-			
-			std::string sender = fmt::format("Discord: {}", globalName.get<std::string>());
-
-			AsaApi::GetApiUtils().SendChatMessageToAll(FString(sender), msg.c_str());
-
-			DiscordGlobalChat::lastMessageID = resObj["id"].get<std::string>();
+			Log::GetLog()->warn("resObj is null");
+			return;
 		}
-		catch (std::exception& error)
+		nlohmann::json  resObj = parsed[0];
+
+		auto globalName = resObj["author"]["global_name"];
+
+		// if not sent by bot
+		if (resObj.contains("bot") && globalName.is_null())
 		{
-			Log::GetLog()->error("Error parsing JSON results. Error: {}",error.what());
+			Log::GetLog()->warn("the sender is bot");
+			return;
 		}
+
+		std::string msg = resObj["content"].get<std::string>();
+
+		//if (!startsWith(msg, "!"))
+		//{
+		//	//Log::GetLog()->warn("message not startswith !");
+		//	return;
+		//}
+
+		if (DiscordGlobalChat::lastMessageID == resObj["id"].get<std::string>()) return;
+
+		std::string sender = fmt::format("Discord: {}", globalName.get<std::string>());
+
+		AsaApi::GetApiUtils().SendChatMessageToAll(FString(sender), msg.c_str());
+
+		DiscordGlobalChat::lastMessageID = resObj["id"].get<std::string>();
+
+		//try
+		//{
+		//	
+		//}
+		//catch (const std::exception& error)
+		//{
+		//	//Log::GetLog()->error("Error parsing JSON results. Error: {}",error.what());
+		//}
 	}
 	else
 	{
@@ -88,17 +90,19 @@ void FetchMessageFromDiscord()
 		"Authorization: Bot " + botToken
 	};
 
-	try
-	{
-		bool req = DiscordGlobalChat::req.CreateGetRequest(apiURL, FetchMessageFromDiscordCallback, headers);
+	bool req = DiscordGlobalChat::req.CreateGetRequest(apiURL, FetchMessageFromDiscordCallback, headers);
 
-		if (!req)
-			Log::GetLog()->error("Failed to perform Get request. req = {}", req);
+	if (!req)
+		Log::GetLog()->error("Failed to perform Get request. req = {}", req);
+
+	/*try
+	{
+		
 	}
 	catch (const std::exception& error)
 	{
 		Log::GetLog()->error("Failed to perform Get request. Error: {}", error.what());
-	}
+	}*/
 }
 
 void SendMessageToDiscordCallback(bool success, std::string results, std::unordered_map<std::string, std::string> responseHeaders)
